@@ -1,9 +1,9 @@
-# Figure 4
+# Figure 4 without datapoints
+
+load("gamma_models.RData")
+load("simulation_output.RData")
+
 require(MASS)
-
-a = (t1[which.max(rowSums(sta_A4))] - ((coef(alt1A)[1] - 1) / coef(alt1A)[2]))
-b = ((t1[which.max(rowSums(sta_A4A))] - a) - ((coef(alt2A)[1] - 1) / coef(alt2A)[2])) / 2
-
 
 t_col <- function(color, percent = 50, name = NULL) {
   #      color = color name
@@ -30,6 +30,9 @@ crowcol <- t_col("brown", percent = 50)
 nymcol <- t_col("brown", percent = 80)
 malecol <- t_col("darkgreen", percent = 40)
 femcol <- t_col("blue4", percent = 40)
+
+a = (t1[which.max(rowSums(sta_A4))] - ((coef(alt1A)[1] - 1) / coef(alt1A)[2]))
+b = ((t1[which.max(rowSums(sta_A4A))] - a) - ((coef(alt2A)[1] - 1) / coef(alt2A)[2])) / 2
 
 
 # phenology
@@ -94,8 +97,8 @@ polygon(c(seq(0, long, stepy) - (a + b), - (a + b)), c(rowSums(sta_A4a) / 600, 0
 polygon(c(seq(0, long, stepy) - (a + b), - (a + b)), c(rowSums(sta_A4A) / 1100, 0), col = malecol, border = NA)
 polygon(c(seq(0, long, stepy) - (a + b), 1900), c(rowSums(sta_A4Aa) / 19000, 0), col = femcol, border = NA)
 
-points(dataG1A$DD2, dataG1A$prop, col = "green3", lwd = 2)
-points(dataG2A$DD2, dataG2A$prop, col = "green3", lwd = 2)
+#points(dataG1A$DD2, dataG1A$prop, col = "green3", lwd = 2)
+#points(dataG2A$DD2, dataG2A$prop, col = "green3", lwd = 2)
 
 abline(v = (coef(alt1A)[1] - 1) / coef(alt1A)[2], col = "blue", lwd = 2, lty = 2)
 abline(v = t1[which.max(rowSums(sta_A4))] - (a + b), lwd = 2, lty = 2)

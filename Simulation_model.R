@@ -203,3 +203,5 @@ for(h in 1: length(t1)) {
   check[h + 1] <- sta_A[length(t1),1]
   if(check[h + 1] == check[h]) break
 }
+
+save.image(file = "simulation_output.RData")
