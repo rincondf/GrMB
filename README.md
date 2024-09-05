@@ -1,2 +1,1 @@
-Optimizing insecticide application timing from pheromone trap capture data
 This repository contains the code that runs a phenology simulation model for the grape mealybug, Pseudococcus maritimus. The output is presented as a figure (Figure4.R). This repository is part of the manuscript titled "Optimizing insecticide application timing from pheromone trap capture data" by Stephen O. Onayemi, Diego F. Rincon, Brian W. Bahder, David W. Crowder and Doug B. Walsh.
