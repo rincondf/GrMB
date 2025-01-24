@@ -43,7 +43,7 @@ plot(seq(0, long, stepy) - (a + b), rowSums(sta_A) / 1000, type = "l", ylab = ""
      xlim = c(-310, 1700), yaxt = "n", xaxt = "n", cex.lab = 2, cex.axis = 2, lwd = 2)
 
 axis(2, at = seq(0, 1, 0.2), labels = FALSE)
-axis(3, at = c(-(a + b), 0), labels = c("Eggs laid", "Jan 1st"), cex.axis = 1.5)
+axis(3, at = c(-(a + b), 0), labels = c("Eggs laid", "Jan 1st"), cex.axis = 1.8)
 axis(1, at = c(seq(-500, -100, 200), 0, seq(100, 1700, 200)), labels = FALSE)
 
 lines(seq(0, long, stepy) - (a + b), rowSums(sta_A5) / 10000, lwd = 2)
@@ -58,7 +58,7 @@ plot(seq(0, long, stepy) - (a + b), rowSums(sta_A1) / 1000, type = "l", ylab = "
      xlim = c(-310, 1700), yaxt = "n", xaxt = "n", cex.lab = 2, cex.axis = 2, lwd = 2)
 
 axis(2, at = seq(0, 1, 0.2), labels = FALSE)
-axis(3, at = c(-(a + b), 0), labels = c("Eggs laid", "Jan 1st"), cex.axis = 1.5)
+axis(3, at = c(-(a + b), 0), labels = c("Eggs laid", "Jan 1st"), cex.axis = 1.8)
 axis(1, at = c(seq(-500, -100, 200), 0, seq(100, 1700, 200)), labels = FALSE)
 
 lines(seq(0, long, stepy) - (a + b), rowSums(sta_A1A) / 17000, lwd = 2)
@@ -84,8 +84,8 @@ plot(seq(0, long, stepy) - (a + b), rowSums(sta_A4) / 45, type = "l", ylab = "",
      xlim = c(-310, 1700), yaxt = "n", xaxt = "n", cex.lab = 2, cex.axis = 2, lwd = 2, ylim = c(0, 0.75))
 
 axis(2, at = seq(0, 1, 0.2), labels = FALSE)
-axis(3, at = c(-(a + b), 0), labels = c("Eggs laid", "Jan 1st"), cex.axis = 1.5)
-axis(1, at = c(seq(-500, -100, 200), 0, seq(100, 1700, 200)), cex.axis = 2)
+axis(3, at = c(-(a + b), 0), labels = c("Eggs laid", "Jan 1st"), cex.axis = 1.8)
+axis(1, at = c(seq(-500, -100, 200), 0, seq(100, 1700, 200)), cex.axis = 2.2)
 
 lines(seq(0, long, stepy) - (a + b), rowSums(sta_A4a) / 600, lwd = 2)
 lines(seq(0, long, stepy) - (a + b), rowSums(sta_A4A) / 1100, lwd = 2)
@@ -107,5 +107,5 @@ abline(v = (coef(alt2A)[1] - 1) / coef(alt2A)[2], col = "brown", lwd = 2, lty = 
 abline(v = t1[which.max(rowSums(sta_A4A))] - (a + b), lwd = 2, lty = 2)
 mtext("C", cex = 1.7, adj = -0.07)
 
-title(ylab = "Relative number", outer = TRUE, cex.lab = 2.5)
-title(xlab = "Degree days", outer = TRUE, cex.lab = 2.5)
+title(ylab = "Relative abundance", outer = TRUE, cex.lab = 3, line = 3.5)
+title(xlab = "Degree days", outer = TRUE, cex.lab = 3)
