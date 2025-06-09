@@ -36,6 +36,12 @@ b = ((t1[which.max(rowSums(sta_A4A))] - a) - ((coef(alt2A)[1] - 1) / coef(alt2A)
 
 
 # phenology
+
+tiff(filename = "Fig4New.tif",
+     width = 2200*2, height = 1700*2, units = "px", res = 500)
+
+
+###3
 par(mfrow = c(3, 1), oma = c(6, 6, 1, 1))
 
 par(mar = c(2, 2, 2, 2) + 0.1)
@@ -109,3 +115,14 @@ mtext("C", cex = 1.7, adj = -0.07)
 
 title(ylab = "Relative abundance", outer = TRUE, cex.lab = 3, line = 3.5)
 title(xlab = "Degree days", outer = TRUE, cex.lab = 3)
+
+dev.off()
+
+
+
+
+
+
+
+
+
