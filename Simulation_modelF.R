@@ -51,7 +51,7 @@ k_f_repF <- round(((c_to_f(25) - c_to_f(10)) * (54.84 - 22.14))^2 / (((c_to_f(25
 
 
 stepy <- 0.0625
-longF <- CDD_FDD(2500)
+longF <- CDD_FDD(3500)
 t1 <- seq(0, longF, stepy)
 
 

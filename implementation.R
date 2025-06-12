@@ -1,6 +1,9 @@
 load("simulation_output_F.RData")
 load("gammamodelsF.RData")
 
+a = (t1[which.max(rowSums(sta_A4F))] - ((coef(alt1AF)[1] - 1) / coef(alt1AF)[2]))
+b = ((t1[which.max(rowSums(sta_A4AF))] - a) - ((coef(alt2AF)[1] - 1) / coef(alt2AF)[2])) / 2
+
 crwD <- data.frame(x = seq(0, longF, stepy) - (a + b), y = rowSums(sta_A1F))
 
 library(SuppDists)
@@ -29,13 +32,8 @@ estimat <- function(DDs, prs, method){
   MLL
 }
 
-
-
-
 MLL2 <- estimat(DDs = crwD$x, prs = crwD$y, method = "Nelder-Mead")
 summary(MLL2)
-
-
 
 funres2 <- function(DDs){
   xi = coef(MLL2)[3]
@@ -64,13 +62,17 @@ plot(crwD$x, cumsum(crwD$y/sum(crwD$y)), type = "l", xlim = c(-558, 3060))
 lines(crwD$x, funres2a(crwD$x), col = "red")
 
 crawlers1st <- data.frame(DDs = unique(round(crwD$x)),
-                          simModelRel = (crwD$y[c(grep("4966", as.character(crwD$x)), 
-                                             grep("0033", as.character(crwD$x)))] / 364081.8) * 10000,
+                          simModelRel = (crwD$y[c(grep(".5591", as.character(crwD$x)), 
+                                             grep(".3158", as.character(crwD$x)))] / 364081.8) * 10000,
                           JohnsonSBRel = funres2(unique(round(crwD$x))) * 10000,
-                          simModelCum = cumsum((crwD$y / sum(crwD$y[c(grep("4966", as.character(crwD$x)), 
-                                                                      grep("0033", as.character(crwD$x)))]))[c(grep("4966", as.character(crwD$x)), 
-                                                        grep("0033", as.character(crwD$x)))]),
+                          simModelCum = cumsum((crwD$y / sum(crwD$y[c(grep(".5591", as.character(crwD$x)), 
+                                                                      grep(".3158", as.character(crwD$x)))]))[c(grep(".5591", as.character(crwD$x)), 
+                                                        grep(".3158", as.character(crwD$x)))]),
                           JohnsonSBCum = funres2a(unique(round(crwD$x))))
+
+
+
+
 
 plot(crawlers1st$DDs, crawlers1st$simModelRel, type = "l", xlim = c(-558, 3060))
 lines(crawlers1st$DDs, crawlers1st$JohnsonSBRel, col = "red")
@@ -118,12 +120,12 @@ lines(n2D$x, funres2an2(n2D$x), col = "red")
 
 
 nym2nd <- data.frame(DDs = unique(round(n2D$x)),
-                     simModelRel = (n2D$y[c(grep("4966", as.character(n2D$x)), 
-                                             grep("0033", as.character(n2D$x)))] / 213902) * 10000,
+                     simModelRel = (n2D$y[c(grep(".5591", as.character(n2D$x)), 
+                                             grep(".3158", as.character(n2D$x)))] / 213902) * 10000,
                      JohnsonSBRel = funres2n2(unique(round(n2D$x))) * 10000,
-                     simModelCum = cumsum((n2D$y / sum(n2D$y[c(grep("4966", as.character(n2D$x)), 
-                                                                 grep("0033", as.character(n2D$x)))]))[c(grep("4966", as.character(n2D$x)), 
-                                                                                                          grep("0033", as.character(n2D$x)))]),
+                     simModelCum = cumsum((n2D$y / sum(n2D$y[c(grep(".5591", as.character(n2D$x)), 
+                                                                 grep(".3158", as.character(n2D$x)))]))[c(grep(".5591", as.character(n2D$x)), 
+                                                                                                          grep(".3158", as.character(n2D$x)))]),
                      JohnsonSBCum = funres2an2(unique(round(n2D$x))))
 
 plot(nym2nd$DDs, nym2nd$simModelRel, type = "l", xlim = c(-558, 3060))
@@ -166,7 +168,7 @@ funres2an3 <- function(DDs){
 
 max(n3D$y)/max(funres2n3(n3D$x))
 
-plot(n3D$x, n3D$y/332798.9, type = "l", xlim = c(-558, 3060))
+plot(n3D$x, n3D$y/327440.1, type = "l", xlim = c(-558, 3060))
 lines(n3D$x, funres2n3(n2D$x), col = "red")
 
 plot(n3D$x, cumsum(n3D$y/sum(n3D$y)), type = "l", xlim = c(-558, 3060))
@@ -174,12 +176,12 @@ lines(n3D$x, funres2an3(n3D$x), col = "red")
 
 
 nym3rd <- data.frame(DDs = unique(round(n3D$x)),
-                     simModelRel = (n3D$y[c(grep("4966", as.character(n3D$x)), 
-                                            grep("0033", as.character(n3D$x)))] / 332798.9) * 10000,
+                     simModelRel = (n3D$y[c(grep(".5591", as.character(n3D$x)), 
+                                            grep(".3158", as.character(n3D$x)))] / 327440.1) * 10000,
                      JohnsonSBRel = funres2n3(unique(round(n3D$x))) * 10000,
-                     simModelCum = cumsum((n3D$y / sum(n3D$y[c(grep("4966", as.character(n3D$x)), 
-                                                               grep("0033", as.character(n3D$x)))]))[c(grep("4966", as.character(n3D$x)), 
-                                                                                                       grep("0033", as.character(n3D$x)))]),
+                     simModelCum = cumsum((n3D$y / sum(n3D$y[c(grep(".5591", as.character(n3D$x)), 
+                                                               grep(".3158", as.character(n3D$x)))]))[c(grep(".5591", as.character(n3D$x)), 
+                                                                                                       grep(".3158", as.character(n3D$x)))]),
                      JohnsonSBCum = funres2an3(unique(round(n3D$x))))
 
 plot(nym3rd$DDs, nym3rd$simModelRel, type = "l", xlim = c(-558, 3060))
@@ -223,7 +225,7 @@ funres2ama <- function(DDs){
 
 max(malD$y)/max(funres2ma(malD$x))
 
-plot(malD$x, malD$y/19058.79, type = "l", xlim = c(-558, 3060))
+plot(malD$x, malD$y/18751.47, type = "l", xlim = c(-558, 3060))
 lines(malD$x, funres2ma(malD$x), col = "red")
 
 plot(malD$x, cumsum(malD$y/sum(malD$y)), type = "l", xlim = c(-558, 3060))
@@ -231,12 +233,12 @@ lines(malD$x, funres2ama(malD$x), col = "red")
 
 
 males <- data.frame(DDs = unique(round(malD$x)),
-                     simModelRel = (malD$y[c(grep("4966", as.character(malD$x)), 
-                                            grep("0033", as.character(malD$x)))] / 19058.79) * 10000,
+                     simModelRel = (malD$y[c(grep(".5591", as.character(malD$x)), 
+                                            grep(".3158", as.character(malD$x)))] / 18751.47) * 10000,
                      JohnsonSBRel = funres2ma(unique(round(malD$x))) * 10000,
-                     simModelCum = cumsum((malD$y / sum(malD$y[c(grep("4966", as.character(malD$x)), 
-                                                               grep("0033", as.character(malD$x)))]))[c(grep("4966", as.character(malD$x)), 
-                                                                                                       grep("0033", as.character(malD$x)))]),
+                     simModelCum = cumsum((malD$y / sum(malD$y[c(grep(".5591", as.character(malD$x)), 
+                                                               grep(".3158", as.character(malD$x)))]))[c(grep(".5591", as.character(malD$x)), 
+                                                                                                       grep(".3158", as.character(malD$x)))]),
                      JohnsonSBCum = funres2ama(unique(round(malD$x))))
 
 plot(males$DDs, males$simModelRel, type = "l", xlim = c(-558, 3060))
@@ -249,17 +251,29 @@ lines(males$DDs, males$JohnsonSBCum, col = "red")
 
 ###########
 
+estimatF <- function(DDs, prs){
+  LL1 <- function(gamma, delta, a) {
+    -sum(pr * log(dJohnsonSB_ab(x = x, gamma = gamma, delta = delta, a = a, b = 1977346.3)))
+  }
+  
+  MLL <- mle2(LL1, start = list(gamma = -0.5, delta = 2, a = min(DDs) - 1), 
+              data = list(x = DDs, pr = prs),
+              method = "Nelder-Mead")
+  
+  MLL
+}
+
 
 femD <- data.frame(x = seq(0, longF, stepy) - (a + b), y = rowSums(sta_A4aF))
 
-MLL2fem <- estimat(DDs = femD$x, prs = femD$y, method = "Nelder-Mead")
+MLL2fem <- estimatF(DDs = femD$x, prs = femD$y)
 summary(MLL2fem)
 
 
 
 funres2fem <- function(DDs){
   xi = coef(MLL2fem)[3]
-  lambda = coef(MLL2fem)[4] - coef(MLL2fem)[3]
+  lambda = 1977346.3 - coef(MLL2fem)[3]
   dJohnsonSB(DDs, gamma = coef(MLL2fem)[1],
              delta = coef(MLL2fem)[2],
              xi = xi,
@@ -269,7 +283,7 @@ funres2fem <- function(DDs){
 
 funres2afem <- function(DDs){
   xi = coef(MLL2fem)[3]
-  lambda = coef(MLL2fem)[4] - coef(MLL2fem)[3]
+  lambda = 1977346.3 - coef(MLL2fem)[3]
   pJohnsonSB(DDs, gamma = coef(MLL2fem)[1],
              delta = coef(MLL2fem)[2],
              xi = xi,
@@ -279,7 +293,7 @@ funres2afem <- function(DDs){
 
 max(femD$y)/max(funres2fem(femD$x))
 
-plot(femD$x, femD$y/576427.1, type = "l", xlim = c(-558, 3060))
+plot(femD$x, femD$y/462320.9, type = "l", xlim = c(-558, 3060))
 lines(femD$x, funres2fem(femD$x), col = "red")
 
 plot(femD$x, cumsum(femD$y/sum(femD$y)), type = "l", xlim = c(-558, 3060))
@@ -287,16 +301,23 @@ lines(femD$x, funres2afem(femD$x), col = "red")
 
 
 females <- data.frame(DDs = unique(round(femD$x)),
-                    simModelRel = (femD$y[c(grep("4966", as.character(femD$x)), 
-                                            grep("0033", as.character(femD$x)))] / 576427.1) * 10000,
+                    simModelRel = (femD$y[c(grep(".5591", as.character(femD$x)), 
+                                            grep(".3158", as.character(femD$x)))] / 462320.9) * 10000,
                     JohnsonSBRel = funres2fem(unique(round(femD$x))) * 10000,
-                    simModelCum = cumsum((femD$y / sum(femD$y[c(grep("4966", as.character(femD$x)), 
-                                                                grep("0033", as.character(femD$x)))]))[c(grep("4966", as.character(femD$x)), 
-                                                                                                         grep("0033", as.character(femD$x)))]),
+                    simModelCum = cumsum((femD$y / sum(femD$y[c(grep(".5591", as.character(femD$x)), 
+                                                                grep(".3158", as.character(femD$x)))]))[c(grep(".5591", as.character(femD$x)), 
+                                                                                                         grep(".3158", as.character(femD$x)))]),
                     JohnsonSBCum = funres2afem(unique(round(femD$x))))
 
-plot(females$DDs, females$simModelRel, type = "l", xlim = c(-558, 3060))
+plot(females$DDs, females$simModelRel, type = "l", xlim = c(-558, 6060))
 lines(females$DDs, females$JohnsonSBRel, col = "red")
 
 plot(females$DDs, females$simModelCum, type = "l", xlim = c(-558, 3060))
 lines(females$DDs, females$JohnsonSBCum, col = "red")
+
+
+
+
+
+
+
