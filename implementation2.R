@@ -448,3 +448,9 @@ abline(v = -(a + b), lwd = 2, lty = 3)
 title(ylab = "Cumulative emergence", cex.lab = 3, line = 4.5)
 title(xlab = "Degree days (F)", cex.lab = 3, line  = 4)
 
+
+
+
+save(MLL2, MLL22, MLL2n2, MLL2n22, MLL2n3, MLL2n32, MLL2ma, MLL2ma2, MLL2fem, MLL2fem2, file = "Ph_models.RData")
+save(RelAbundanceSM, RelAbundanceSMV2, RelAbundanceJSB, RelAbundanceJSBV2, RelAbundanceSM2, RelAbundanceJSB2, 
+     CumEmergenceSM, CumEmergenceSMV2, CumEmergenceJSB, CumEmergenceJSBV2, CumEmergenceSM2, CumEmergenceJSB2, file = "data_phen.RData")
