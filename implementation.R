@@ -317,7 +317,173 @@ lines(females$DDs, females$JohnsonSBCum, col = "red")
 
 
 
+##############
+
+RelAbundanceSM <- data.frame(FDDs = unique(round(crwD$x)),
+                             Crawlers = crawlers1st$simModelRel,
+                             Nymph2 = nym2nd$simModelRel,
+                             Nymph3 = nym3rd$simModelRel,
+                             Males = males$simModelRel,
+                             Females = females$simModelRel)
+
+CumEmergenceSM <- data.frame(FDDs = unique(round(crwD$x)),
+                             Crawlers = crawlers1st$simModelCum,
+                             Nymph2 = nym2nd$simModelCum,
+                             Nymph3 = nym3rd$simModelCum,
+                             Males = males$simModelCum,
+                             Females = females$simModelCum)
+
+
+RelAbundanceJSB <- data.frame(FDDs = unique(round(crwD$x)),
+                              Crawlers = crawlers1st$JohnsonSBRel,
+                              Nymph2 = nym2nd$JohnsonSBRel,
+                              Nymph3 = nym3rd$JohnsonSBRel,
+                              Males = males$JohnsonSBRel,
+                              Females = females$JohnsonSBRel)
+
+CumEmergenceJSB <- data.frame(FDDs = unique(round(crwD$x)),
+                              Crawlers = crawlers1st$JohnsonSBCum,
+                              Nymph2 = nym2nd$JohnsonSBCum,
+                              Nymph3 = nym3rd$JohnsonSBCum,
+                              Males = males$JohnsonSBCum,
+                              Females = females$JohnsonSBCum)
+
+
+par(mar = c(5.5, 5, 3, 2) + 0.1)
+plot(RelAbundanceSM$FDDs, 
+     RelAbundanceSM$Crawlers, type = "l", ylab = "", xlab = "",
+     xlim = c(-558, 3300), ylim = c(0, 25), yaxt = "n", xaxt = "n", cex.lab = 2, cex.axis = 2, lwd = 2)
+
+axis(2, at = seq(0, 25), labels = FALSE)
+axis(3, at = c(-(a + b), 0), labels = c("Egg laying peak", "Jan 1st"), cex.axis = 1.8)
+axis(1, at = c(seq(-900, -180, 360), 0, seq(180, 3060, 360)), cex.axis = 2.2)
+
+lines(RelAbundanceSM$FDDs, RelAbundanceSM$Nymph2, lwd = 2, lty = 2)
+lines(RelAbundanceSM$FDDs, RelAbundanceSM$Nymph3, lwd = 2, lty = 2)
+lines(RelAbundanceSM$FDDs, RelAbundanceSM$Males, lwd = 2)
+lines(RelAbundanceSM$FDDs, RelAbundanceSM$Females, lwd = 2)
+
+polygon(c(RelAbundanceSM$FDDs, 0), c(RelAbundanceSM$Crawlers, 0), col = crowcol, border = NA)
+polygon(c(RelAbundanceSM$FDDs, 0), c(RelAbundanceSM$Nymph2, 0), col = nymcol, border = NA)
+polygon(c(RelAbundanceSM$FDDs, 0), c(RelAbundanceSM$Nymph3, 0), col = nymcol, border = NA)
+
+polygon(c(RelAbundanceSM$FDDs, 0), c(RelAbundanceSM$Males, 0), col = malecol, border = NA)
+polygon(c(RelAbundanceSM$FDDs, 0), c(RelAbundanceSM$Females, 0), col = femcol, border = NA)
+
+abline(v = 0, lwd = 2, lty = 3)
+abline(v = -(a + b), lwd = 2, lty = 3)
+
+title(ylab = "Relative abundance", cex.lab = 3, line = 3)
+title(xlab = "Degree days (F)", cex.lab = 3, line  = 4)
 
 
 
+#############
+
+
+
+par(mar = c(5.5, 7, 3, 2) + 0.1)
+plot(CumEmergenceSM$FDDs, 
+     CumEmergenceSM$Crawlers, type = "l", ylab = "", xlab = "",
+     xlim = c(-558, 3300), ylim = c(0, 1), yaxt = "n", xaxt = "n", cex.lab = 2, cex.axis = 2, lwd = 2, col = crowcol)
+
+axis(2, at = seq(0, 1, 0.2), cex.axis = 2.2, las = 2)
+axis(3, at = c(-(a + b), 0), labels = c("Egg laying peak", "Jan 1st"), cex.axis = 1.8)
+axis(1, at = c(seq(-900, -180, 360), 0, seq(180, 3060, 360)), cex.axis = 2.2)
+
+lines(CumEmergenceSM$FDDs, CumEmergenceSM$Nymph2, lwd = 2, lty = 2, col = nymcol)
+lines(CumEmergenceSM$FDDs, CumEmergenceSM$Nymph3, lwd = 2, lty = 2, col = nymcol)
+lines(CumEmergenceSM$FDDs, CumEmergenceSM$Males, lwd = 2, col = malecol)
+lines(CumEmergenceSM$FDDs, CumEmergenceSM$Females, lwd = 2, col = femcol)
+
+
+abline(v = 0, lwd = 2, lty = 3)
+abline(v = -(a + b), lwd = 2, lty = 3)
+
+title(ylab = "Cumulative emergence", cex.lab = 3, line = 4.5)
+title(xlab = "Degree days (F)", cex.lab = 3, line  = 4)
+
+
+
+
+
+
+##############
+
+
+eggsL <- round((seq(0, longF, stepy) - (a + b))[(which.max(rowSums(sta_A5AF)))])
+
+RelAbundanceSMV2 <- data.frame(FDDs = seq(1, 3330), # 3330 = eggsL + portion of dev with neg DDs
+                               Crawlers = c(RelAbundanceSM$Crawlers[which(RelAbundanceSM$FDDs > 0 & RelAbundanceSM$FDDs < eggsL)], 
+                                            RelAbundanceSM$Crawlers[which(RelAbundanceSM$FDDs < 0)]),
+                               Nymph2 = c(RelAbundanceSM$Nymph2[which(RelAbundanceSM$FDDs > 0 & RelAbundanceSM$FDDs < eggsL)], 
+                                          RelAbundanceSM$Nymph2[which(RelAbundanceSM$FDDs < 0)]),
+                               Nymph3 = RelAbundanceSM$Nymph3[which(RelAbundanceSM$FDDs > 0 & RelAbundanceSM$FDDs <= 3330)],
+                               Males = RelAbundanceSM$Males[which(RelAbundanceSM$FDDs > 0 & RelAbundanceSM$FDDs <= 3330)],
+                               Females = RelAbundanceSM$Females[which(RelAbundanceSM$FDDs > 0 & RelAbundanceSM$FDDs <= 3330)])
+
+
+par(mar = c(5.5, 5, 3, 2) + 0.1)
+plot(RelAbundanceSMV2$FDDs, 
+     RelAbundanceSMV2$Crawlers, type = "l", ylab = "", xlab = "",
+     xlim = c(-100, 3300), ylim = c(0, 25), yaxt = "n", xaxt = "n", cex.lab = 2, cex.axis = 2, lwd = 2)
+
+axis(2, at = seq(0, 25), labels = FALSE)
+axis(3, at = c(0, eggsL), labels = c("Jan 1st", "Summer egg laying peak"), cex.axis = 1.8)
+axis(1, at = c(0, seq(180, 3060, 360)), cex.axis = 2.2)
+
+lines(RelAbundanceSMV2$FDDs, RelAbundanceSMV2$Nymph2, lwd = 2, lty = 2)
+lines(RelAbundanceSMV2$FDDs, RelAbundanceSMV2$Nymph3, lwd = 2, lty = 2)
+lines(RelAbundanceSMV2$FDDs, RelAbundanceSMV2$Males, lwd = 2)
+lines(RelAbundanceSMV2$FDDs, RelAbundanceSMV2$Females, lwd = 2)
+
+polygon(c(0, RelAbundanceSMV2$FDDs, 3331), c(0, RelAbundanceSMV2$Crawlers, 0), col = crowcol, border = NA)
+polygon(c(0, RelAbundanceSMV2$FDDs, 3331), c(0, RelAbundanceSMV2$Nymph2, 0), col = nymcol, border = NA)
+polygon(c(RelAbundanceSMV2$FDDs, 0), c(RelAbundanceSMV2$Nymph3, 0), col = nymcol, border = NA)
+
+polygon(c(RelAbundanceSMV2$FDDs, 0), c(RelAbundanceSMV2$Males, 0), col = malecol, border = NA)
+polygon(c(0, RelAbundanceSMV2$FDDs, 3331), c(0, RelAbundanceSMV2$Females, 0), col = femcol, border = NA)
+
+abline(v = 0, lwd = 2, lty = 3)
+abline(v = eggsL, lwd = 2, lty = 3)
+
+title(ylab = "Relative abundance", cex.lab = 3, line = 3)
+title(xlab = "Degree days (F)", cex.lab = 3, line  = 4)
+
+
+
+######
+
+
+
+CumEmergenceSMV2 <- data.frame(FDDs = seq(1, 3330), # 3330 = eggsL + portion of dev with neg DDs
+                               Crawlers = c(CumEmergenceSM$Crawlers[which(CumEmergenceSM$FDDs > 0 & CumEmergenceSM$FDDs < eggsL)], 
+                                            CumEmergenceSM$Crawlers[which(CumEmergenceSM$FDDs < 0)]),
+                               Nymph2 = c(CumEmergenceSM$Nymph2[which(CumEmergenceSM$FDDs > 0 & CumEmergenceSM$FDDs < eggsL)], 
+                                          CumEmergenceSM$Nymph2[which(CumEmergenceSM$FDDs < 0)]),
+                               Nymph3 = CumEmergenceSM$Nymph3[which(CumEmergenceSM$FDDs > 0 & CumEmergenceSM$FDDs <= 3330)],
+                               Males = CumEmergenceSM$Males[which(CumEmergenceSM$FDDs > 0 & CumEmergenceSM$FDDs <= 3330)],
+                               Females = CumEmergenceSM$Females[which(CumEmergenceSM$FDDs > 0 & CumEmergenceSM$FDDs <= 3330)])
+
+
+par(mar = c(5.5, 7, 3, 2) + 0.1)
+plot(CumEmergenceSMV2$FDDs, 
+     CumEmergenceSMV2$Crawlers, type = "l", ylab = "", xlab = "",
+     xlim = c(-100, 3300), ylim = c(0, 1), yaxt = "n", xaxt = "n", cex.lab = 2, cex.axis = 2, lwd = 2, col = crowcol)
+
+axis(2, at = seq(0, 1, 0.2), cex.axis = 2.2, las = 2)
+axis(3, at = c(0, eggsL), labels = c("Jan 1st", "Summer egg laying peak"), cex.axis = 1.8)
+axis(1, at = c(0, seq(180, 3060, 360)), cex.axis = 2.2)
+
+lines(CumEmergenceSMV2$FDDs, CumEmergenceSMV2$Nymph2, lwd = 2, lty = 2, col = nymcol)
+abline(v = eggsL, lwd = 3, col = "white")
+lines(CumEmergenceSMV2$FDDs, CumEmergenceSMV2$Nymph3, lwd = 2, lty = 2, col = nymcol)
+lines(CumEmergenceSMV2$FDDs, CumEmergenceSMV2$Males, lwd = 2, col = malecol)
+lines(CumEmergenceSMV2$FDDs, CumEmergenceSMV2$Females, lwd = 2, col = femcol)
+
+abline(v = 0, lwd = 2, lty = 3)
+abline(v = eggsL, lwd = 2, lty = 3)
+
+title(ylab = "Cumulative emergence", cex.lab = 3, line = 4.5)
+title(xlab = "Degree days (F)", cex.lab = 3, line  = 4)
 
