@@ -19,13 +19,14 @@ IntersectFA2F <- optimize(NormIntersectA, interval =  c(864, 1080), shape1 = tes
 
 # Figure with proportions across degree-days, the distributions and the cut point (intersection of the two)
 
-plot(datasetF$DD2, datasetF$prop/100, ylim = c(0, 0.009), xlab = "Degree-days (F)", ylab = "",  cex.lab = 2, cex.axis = 1.8, lwd = 2, yaxt = "n")
+plot(datasetF$DD2, datasetF$prop/100, ylim = c(0, 0.006), xlab = "Degree-days (F)", ylab = "",  cex.lab = 2, cex.axis = 1.8, lwd = 2, yaxt = "n")
 axis(2, at = seq(0, 0.009, 0.001), labels = FALSE, cex.axis = 1.8, las = 2)
 title(ylab = "Relative captures", line = 2, cex.lab = 2)
 
 
-lines(seq(0, 3500), dgamma(seq(0, 3500), shape = testA2F$gamma.pars[1, 1], scale = testA2F$gamma.pars[2, 1]), lwd = 2, col = "blue")
-lines(seq(0, 3500), dgamma(seq(0, 3500), shape = testA2F$gamma.pars[1, 2], scale = testA2F$gamma.pars[2, 2]), lwd = 2, col = "brown")
+lines(seq(0, 3500), dgamma(seq(0, 3500), shape = testA2F$gamma.pars[1, 1], scale = testA2F$gamma.pars[2, 1]) + 
+        dgamma(seq(0, 3500), shape = testA2F$gamma.pars[1, 2], scale = testA2F$gamma.pars[2, 2]), lwd = 2, col = "blue")
+
 abline(v = IntersectFA2F$minimum, col = "darkgreen", lwd = 2, lty = 3)
 
 
@@ -64,8 +65,8 @@ alt1AF <- fitdistr(rep(dataG1FA$DD2, round(dataG1FA$prop * 100)), densfun = "gam
 # Figure that compares the model fit with the full dataset (blue) and the one using only counts for generation 1 (red)
 
 plot(dataG1FA$DD2, dataG1FA$prop, ylim = c(0, 0.8))
-lines(seq(0, 2000), dgamma(seq(0, 2000), shape = testA2F$gamma.pars[1, 1], scale = testA2F$gamma.pars[2, 1])*100, lwd = 2, col = "blue")
-lines(seq(0, 2000), dgamma(seq(0, 2000), shape = coef(alt1AF)[1], rate = coef(alt1AF)[2])*100, lwd = 2, col = "red")
+lines(seq(0, 2000), dgamma(seq(0, 2000), shape = testA2F$gamma.pars[1, 1], scale = testA2F$gamma.pars[2, 1]), lwd = 2, col = "blue")
+lines(seq(0, 2000), dgamma(seq(0, 2000), shape = coef(alt1AF)[1], rate = coef(alt1AF)[2]), lwd = 2, col = "red")
 
 
 # As in practice cumulative porportions are more useful , we calculate cumulative proportions per site and date
